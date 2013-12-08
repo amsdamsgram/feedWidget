@@ -20,7 +20,7 @@ define([
 
     var resetCache = function(){
         Backbone.fetchCache._cache = {};
-        Backbone.fetchCache.setLocalStorage();
+        Backbone.fetchCache.localStorage = false;
     };
 
     return {

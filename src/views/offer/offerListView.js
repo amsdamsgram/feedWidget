@@ -16,19 +16,9 @@ define([
         renderOffer: function(){
             var _self = this;
             _.forEach(this.offerCollection.models, function(offer){
-                var compiledTemplate = _.template(offerTemplate, {offer: _self.organizedData(offer)});
+                var compiledTemplate = _.template(offerTemplate, {offer: offer});
                 $('#offers').append(compiledTemplate);
             });
-        },
-
-        organizedData: function(offer){
-            var splitTitle = offer.get('title').split('@');
-            var obj = {
-                'title': splitTitle[0].trim(),
-                'location': splitTitle[1].trim(),
-                'link': offer.get('link')
-            }
-            return obj;
         },
 
         render: function(){

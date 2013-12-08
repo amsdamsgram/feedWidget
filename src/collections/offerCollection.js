@@ -7,7 +7,7 @@ define([
     var OfferCollection = Backbone.Collection.extend({
         model: OfferModel,
 
-        feedsUrl: 'http://www.emploi-e-commerce.com/index.php/page/adv_rss/command/getfeed/feed/137609cb692888197a87fef33506751c',
+        url: 'proxy.php',
 
         offset: 0,
         limit: 10,
@@ -16,16 +16,23 @@ define([
         },
 
         parse: function(resp){
-            if (resp.responseData){
-                return resp.responseData.feed.entries;
-            }
-            return [];
+            var dataArray = [];
+            $(resp).find('item').each(function() {
+                var splitTitle = $(this).find('title').text().split('@');
+                var offer = {
+                    'title': splitTitle[0].trim(),
+                    'location': splitTitle[1].trim(),
+                    'link': $(this).find('link').text()
+                };
+                dataArray.push(offer);
+            });
+            return dataArray;
         },
 
         getOffers: function(){
             var _self = this;
             this.fetch({
-                url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=?&q=' + encodeURIComponent(this.feedsUrl),
+                dataType: 'xml',
                 cache: true,
                 success: function(collection, response, options){
                     _self.trigger('change');
