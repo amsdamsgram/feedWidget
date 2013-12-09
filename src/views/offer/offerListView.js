@@ -27,6 +27,10 @@ define([
             return this;
         },
 
+        getNextOffers: function(){
+            this.offerCollection.getOffers();
+        },
+
         clear: function(){
             $(this.el).empty();
         }

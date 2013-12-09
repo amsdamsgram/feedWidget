@@ -9,9 +9,6 @@ define([
 
         url: 'proxy.php',
 
-        offset: 0,
-        limit: 10,
-
         initialize: function(){
         },
 
@@ -36,6 +33,7 @@ define([
                 cache: true,
                 success: function(collection, response, options){
                     _self.trigger('change');
+                    _self.offset += _self.limit;
                 },
                 error: function(collection, response, options){
                     console.log(response.responseText);
