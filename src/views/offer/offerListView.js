@@ -14,7 +14,6 @@ define([
         },
 
         renderOffer: function(){
-            var _self = this;
             _.forEach(this.offerCollection.models, function(offer){
                 var compiledTemplate = _.template(offerTemplate, {offer: offer});
                 $('#offers').append(compiledTemplate);

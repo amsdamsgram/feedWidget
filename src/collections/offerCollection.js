@@ -15,10 +15,12 @@ define([
         parse: function(resp){
             var dataArray = [];
             $(resp).find('item').each(function() {
-                var splitTitle = $(this).find('title').text().split('@');
+                var description = $(this).find('description').text();
+                var index = description.lastIndexOf('</b>');
+                var company = $(description.substring(index)).text().trim();
                 var offer = {
-                    'title': splitTitle[0].trim(),
-                    'location': splitTitle[1].trim(),
+                    'title': $(this).find('title').text(),
+                    'company': company,
                     'link': $(this).find('link').text()
                 };
                 dataArray.push(offer);
